@@ -1,0 +1,81 @@
+package com.me.mygdxgame;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Disposable;
+
+public class WorldRenderer implements Disposable {
+	private OrthographicCamera camera;
+	private SpriteBatch batch;
+	public static WorldRenderer renderer = new WorldRenderer();
+	private OrthographicCamera GUIcamera;
+	private Texture arrow;
+	public Texture guage;
+	public Texture indicator;
+	
+	public WorldRenderer(){
+	}
+	
+	public void init(){
+		Pixmap guag = new Pixmap(256, 32, Format.RGBA8888);
+		guag.setColor(200, 155, 110, 50);
+		guag.fill();
+		this.guage = new Texture(guag);
+		
+		Pixmap ind = new Pixmap(32,	64, Format.RGBA8888);
+		ind.setColor(0, 255,255,0);
+		ind.fill();
+		this.indicator = new Texture(ind);
+		
+		arrow = new Texture("data/better.png");
+		
+		
+		//regular camera
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.position.set(0, 0, 0);
+		camera.update();
+		
+		
+		//GUIcamera so that the GUI can follow the 
+		GUIcamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		GUIcamera.position.set(0,0,0);
+		GUIcamera.setToOrtho(true);
+		GUIcamera.update();
+		
+		batch = new SpriteBatch();
+		
+	}
+	public void render(){
+		batch.setProjectionMatrix(GUIcamera.combined);
+		batch.begin();
+		for(Squares dis: WorldController.array){
+			dis.render(batch);
+		}
+		batch.draw(arrow, WorldController.columns, 32);
+		renderGUI(batch);
+		batch.end();
+	}
+	
+	private void renderGUI(SpriteBatch batch){
+		batch.draw(guage, Gdx.graphics.getWidth()/2 - 144, Gdx.graphics.getHeight() - 60);
+		batch.draw(indicator, Gdx.graphics.getWidth()/2 - 16 + WorldController.change, Gdx.graphics.getHeight() - 60);
+		//renderSlider(batch);
+	}
+
+	public void resize(int width, int height){
+		
+	}
+
+	@Override
+	public void dispose() {
+		batch.dispose();
+		// TODO Auto-generated method stub
+
+	}
+
+}

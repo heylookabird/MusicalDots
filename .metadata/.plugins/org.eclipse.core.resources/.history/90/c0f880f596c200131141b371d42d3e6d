@@ -1,0 +1,177 @@
+package com.me.mygdxgame;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
+import com.badlogic.gdx.utils.Array;
+import com.me.mygdxgame.Squares.STATE;
+
+public class WorldController extends AbstractScreen{
+	public static Array<Squares> array;
+	public static InputManager inputManager;
+	public static float userTempo;
+	private int columns;
+	private float delay;
+	private Texture arrow;
+	public Texture guage;
+	public Texture indicator;
+	public Rectangle indicatorBounds;
+	public static float change;
+	//public Slider slider;
+	
+	
+	public WorldController(){
+		init();
+		inputManager = new InputManager();
+	}
+	
+	public void init(){
+		//initialize everything. userTempo is to time the delay between update calling the
+		//array to play
+		WorldRenderer.renderer.init();
+		array = new Array<Squares>();
+		columns = 0;
+		userTempo = .50f;
+		
+		Pixmap guag = new Pixmap(256, 32, Format.RGBA8888);
+		guag.setColor(200, 155, 110, 50);
+		guag.fill();
+		this.guage = new Texture(guag);
+		
+		Pixmap ind = new Pixmap(32,	64, Format.RGBA8888);
+		ind.setColor(0, 255,255,0);
+		ind.fill();
+		this.indicator = new Texture(ind);
+		
+		arrow = new Texture("data/better.png");
+		
+		//draw the array of squares.  Squares class calls in rows and height to setSound()
+		//rows and columns begin at 40 to offset them away from edge of screen
+		//add to array of squares
+		for(int rows = 40; rows < Gdx.graphics.getWidth() - 40; rows += 40){
+			for(int columns = 80; columns < Gdx.graphics.getHeight() - 80; columns += 40){
+				Squares square = new Squares(rows, columns);
+				array.add(square);
+			}
+		}
+		
+	}
+	
+	public void update(float deltatime){
+		//pass deltatime to inputManager
+		inputManager.update(deltatime);
+		
+		//set delay so that playArray() doesnt call too quickly
+		//userTempo is affected by the userGUI
+		if(delay < userTempo){
+			delay += deltatime;
+		}
+		else{
+			delay = deltatime;
+			playArray(deltatime);
+		}
+	}
+	
+	private void playArray(float deltatime) {
+		//finds the location of the squares and uses them to call their actions by the XLocation
+		//Everything on the same XLocation will be on the same column
+		if(columns < Gdx.graphics.getWidth() - 80){
+			columns += 40;
+		}
+		else{
+			columns = 40;
+		}
+		for(Squares square: array){
+				if((square.yLocation == columns)&&(square.state != STATE.silent)){
+					square.play();
+				}
+		}
+	}
+	
+	public void render(SpriteBatch batch){
+		for(Squares dis: array){
+			dis.render(batch);
+		}
+		batch.draw(arrow, columns, 32);
+		renderGUI(batch);
+	}
+	
+	private void renderGUI(SpriteBatch batch){
+		batch.draw(guage, Gdx.graphics.getWidth()/2 - 144, Gdx.graphics.getHeight() - 60);
+		batch.draw(indicator, Gdx.graphics.getWidth()/2 - 16 + change, Gdx.graphics.getHeight() - 60);
+		//renderSlider(batch);
+	}
+	
+	
+/*	private void renderSlider(SpriteBatch batch){
+		slider = new Slider(500, 756, 50, false, skin);
+	}*/
+	
+	private float changeGuageLocation(float change) {
+		
+		// TODO Auto-generated method stub
+		return 628 + change;
+	}
+	
+	@Override
+	public void render(float delta) {
+		update(delta);
+		WorldRenderer.renderer.render();// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void show() {
+		init();// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dispose() {
+		for(Squares square: array){
+			square.dispose();
+		}
+		guage.dispose();
+		indicator.dispose();// TODO Auto-generated method stub
+
+	}
+	
+	public boolean handleTouchInput(int screenx, int screeny, int pointer, int button){
+		return false;
+	}
+	public boolean handleKeyInput(int keycode){
+		return false;
+	}
+}
+

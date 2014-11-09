@@ -1,0 +1,152 @@
+
+images.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+mute
+  rotate: false
+  xy: 1, 723
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+unmuted
+  rotate: false
+  xy: 1, 421
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+close-button
+  rotate: false
+  xy: 303, 821
+  size: 201, 202
+  orig: 201, 202
+  offset: 0, 0
+  index: -1
+PowerOff
+  rotate: false
+  xy: 1, 279
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn1
+  rotate: false
+  xy: 303, 679
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn10
+  rotate: false
+  xy: 506, 883
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn2
+  rotate: false
+  xy: 1, 137
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn3
+  rotate: false
+  xy: 151, 279
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn4
+  rotate: false
+  xy: 303, 537
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn5
+  rotate: false
+  xy: 656, 883
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn6
+  rotate: false
+  xy: 151, 137
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn7
+  rotate: false
+  xy: 806, 883
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+octogon
+  rotate: false
+  xy: 1, 4
+  size: 132, 131
+  orig: 132, 131
+  offset: 0, 0
+  index: -1
+PowerOn8
+  rotate: false
+  xy: 303, 395
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+PowerOn9
+  rotate: false
+  xy: 301, 253
+  size: 148, 140
+  orig: 148, 140
+  offset: 0, 0
+  index: -1
+TempoChange
+  rotate: false
+  xy: 301, 116
+  size: 140, 135
+  orig: 140, 135
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 135, 69
+  size: 128, 66
+  orig: 128, 66
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: false
+  xy: 135, 1
+  size: 128, 66
+  orig: 128, 66
+  offset: 0, 0
+  index: -1
+GreenRing
+  rotate: false
+  xy: 453, 787
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+RedRing
+  rotate: false
+  xy: 506, 849
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+YellowRing
+  rotate: false
+  xy: 956, 991
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

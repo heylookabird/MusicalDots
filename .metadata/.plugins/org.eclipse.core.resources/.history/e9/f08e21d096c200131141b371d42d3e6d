@@ -1,0 +1,105 @@
+package com.me.mygdxgame;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.MathUtils;
+
+public class InputManager implements InputProcessor {
+	
+	public InputManager(){
+		Gdx.input.setInputProcessor(this);
+	}
+	@Override
+	public boolean keyDown(int keycode) {
+		switch (keycode){
+		case (Keys.SPACE):
+			for(Squares square: WorldController.array){
+				square.deactivate();
+			}
+			break;
+		
+		case (Keys.N):
+			System.out.println("n pressed");
+			MathUtils.clamp(WorldController.change -= 10.0f, Gdx.graphics.getWidth()/2 - 144, Gdx.graphics.getWidth()/2 + 144);
+			WorldController.userTempo += .10f;
+			break;
+			
+		case (Keys.M):
+			System.out.println("m pressed");
+			MathUtils.clamp(WorldController.change += 10.0f, 500, 756);
+			WorldController.userTempo -= .10f;
+			break;
+			
+		case (Keys.S):
+			
+			
+		}
+		return false;
+
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		switch(keycode){
+		
+		case (Keys.SPACE):
+			for(Squares square: WorldController.array){
+				square.deactivate();// TODO Auto-generated method stub
+			}
+		break;
+		
+		case (Keys.M):
+
+			break;
+			
+		case (Keys.N):
+			break;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		for (Squares square: WorldController.array){
+			if(square.bounds.contains(screenX, screenY)){
+				square.activate();
+			}
+		}
+		return false;
+	}
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public void update(float deltatime){
+		
+	}
+
+}

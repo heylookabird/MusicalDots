@@ -1,0 +1,59 @@
+package com.me.mygdxgame;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Disposable;
+
+public class WorldRenderer implements Disposable {
+	private OrthographicCamera camera;
+	private SpriteBatch batch;
+	public static WorldRenderer renderer = new WorldRenderer();
+	private OrthographicCamera GUIcamera;
+	
+	public WorldRenderer(){
+	}
+	
+	public void init(){
+		//regular camera
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.position.set(0, 0, 0);
+		camera.update();
+		
+		
+		//GUIcamera so that the GUI can follow the 
+		GUIcamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		GUIcamera.position.set(0,0,0);
+		GUIcamera.setToOrtho(true);
+		GUIcamera.update();
+		
+		batch = new SpriteBatch();
+		
+	}
+	public void render(){
+		batch.setProjectionMatrix(GUIcamera.combined);
+		batch.begin();
+		for(Squares dis: array){
+			dis.render(batch);
+		}
+		batch.draw(arrow, columns, 32);
+		renderGUI(batch);
+		batch.end();
+	}
+
+	public void resize(int width, int height){
+		
+	}
+
+	@Override
+	public void dispose() {
+		batch.dispose();
+		// TODO Auto-generated method stub
+
+	}
+
+}

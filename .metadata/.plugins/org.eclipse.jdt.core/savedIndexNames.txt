@@ -1,0 +1,26 @@
+INDEX VERSION 1.126+C:\Users\AGCOSTFU\Documents\Workspace\MusicalDots\.metadata\.plugins\org.eclipse.jdt.core
+1115467115.index
+3133528496.index
+30765161.index
+3290390128.index
+573543369.index
+3923458878.index
+305854171.index
+3541638057.index
+3783852259.index
+3974580528.index
+1796966909.index
+163172794.index
+4039522932.index
+3104063646.index
+3309755987.index
+1498219845.index
+4155206848.index
+1758036748.index
+1995173708.index
+1645106902.index
+1697886153.index
+3065916431.index
+1265905456.index
+4152783897.index
+2247553041.index

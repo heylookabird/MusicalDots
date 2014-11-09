@@ -1,0 +1,191 @@
+package com.me.mygdxgame;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
+public class Squares{
+	public int width = 32;
+	public int height = 32;
+	public boolean playing;
+	public Sound sound;
+	public Texture texture;
+	public int yLocation;
+	private int xLocation;
+	private Pixmap pixmap;
+	public SpriteBatch batch;
+	public STATE state;
+	public Rectangle bounds;
+	public enum STATE{
+		basic, flat, sharp, silent;
+	}
+	public Squares(int locationX, int locationY){
+		yLocation = locationX;
+		xLocation = locationY;
+		batch = new SpriteBatch();
+		init();
+		state = STATE.silent;
+	}
+	
+	public void init(){
+		create();
+		setSound();
+		playing = false;
+		bounds = new Rectangle(yLocation, xLocation, width, height);
+		System.out.println(xLocation);
+		
+	}
+	
+	public Rectangle getBounds(){
+		return bounds;
+	}
+	
+	public void create(){
+		pixmap = new Pixmap(width, height, Format.RGB888);
+		pixmap.setColor(200, 100, 100, 200);
+		pixmap.fill();
+		setTexture(pixmap);
+	}
+	
+	public void setTexture(Pixmap pixmap){
+		texture = new Texture(pixmap);
+	}
+	
+	public void activateSharp(){
+		if(state != STATE.sharp){
+		pixmap.setColor(255, 0, 0, 255);
+		pixmap.fill();
+		setTexture(pixmap);
+		state = STATE.sharp;
+		}
+		else
+			deactivate();
+	}
+	
+	public void activateFlat(){
+		if(state != STATE.flat){
+		pixmap.setColor(200, 150, 100, 50);
+		pixmap.fill();
+		setTexture(pixmap);
+		state = STATE.flat;
+		}
+		else
+			deactivate();
+	}
+	
+	public void activateNormal(){
+		if(state != STATE.basic){
+		pixmap.setColor(50,100,150,200);
+		pixmap.fill();
+		setTexture(pixmap);
+		state = STATE.basic;
+		}
+		else
+			deactivate();
+	}
+	
+	public void activate(){
+		if(state == STATE.silent){
+			activateNormal();
+			state = STATE.basic;
+		}
+		else if(state == STATE.basic){
+			activateFlat();
+			state = STATE.flat;
+		}
+		else if(state == STATE.flat){
+			activateSharp();
+			state = STATE.sharp;
+		}
+		else{
+			deactivate();
+			state = STATE.silent;
+		}
+	}
+	
+	public void deactivate(){
+		pixmap.setColor(200,100,100,200);
+		pixmap.fill();
+		setTexture(pixmap);
+		state = STATE.silent;
+	}
+	public void dispose(){
+		sound.dispose();
+		texture.dispose();
+		pixmap.dispose();
+	}
+	
+	public void play(){
+		sound.play();
+	}
+	
+	public void setSound(){
+		
+		switch(xLocation){
+		
+		case 80:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/BasicA.mp3"));
+			break;
+			
+		case 120:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/BasicB.mp3"));
+			break;
+			
+		case 160:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/BasicC.mp3"));
+			break;
+			
+		case 200:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/BasicD.mp3"));
+			break;
+			
+		case 240:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/BasicE.mp3"));
+			break;
+			
+		case 280:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/BasicF.mp3"));
+			break;
+		
+		case 320:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum11.mp3"));
+			break;
+			
+		case 360:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum21.mp3"));
+			break;
+			
+		case 400:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum31.mp3"));
+			break;
+			
+		case 440:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum41.mp3"));
+			break;
+			
+		case 480:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum51.mp3"));
+			break;
+			
+		case 520:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum61.mp3"));
+			break;
+			
+		case 560:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum71.mp3"));
+			break;
+			
+		case 600:
+			sound = Gdx.audio.newSound(Gdx.files.internal("music/Drum81.mp3"));
+			break;
+		}
+	}
+	
+	public void render(SpriteBatch batch){
+		batch.draw(texture, yLocation, xLocation);
+	}
+}
